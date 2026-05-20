@@ -1,0 +1,3 @@
+"""
+Core connection management module
+"""

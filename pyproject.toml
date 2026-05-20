@@ -1,0 +1,26 @@
+[project]
+name = "lingzhi"
+version = "1.0.0"
+description = "AI assistant for mobile"
+readme = "README.md"
+requires-python = ">=3.11.9"
+
+[tool.ruff]
+target-version = "py310"
+line-length = 120
+fix = true
+indent-width = 4
+
+[tool.ruff.lint]
+select = ["I", "E", "W", "F"]
+ignore = ["E501"]
+# 启用自动修复
+fixable = ["ALL"]
+unfixable = []
+
+[tool.ruff.lint.isort]
+combine-as-imports = false
+force-sort-within-sections = true
+
+[tool.ruff.format]
+indent-style = "space"

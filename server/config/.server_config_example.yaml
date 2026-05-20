@@ -1,0 +1,308 @@
+# ############################# 零知 服务端配置示例 #############################
+#
+# 使用说明：
+# 1. 将本文件复制并重命名为 `.server_config.yaml`
+# 2. 根据下方注释填写必要的配置项
+# 3. 标记为 [必填] 的项必须配置，标记为 [可选] 的可以根据需要配置
+# 4. 敏感信息（如API密钥）请妥善保管，不要提交到版本控制系统
+#
+# #################################################################################
+
+# ############################# 服务器基本运行配置 ####################################
+server:
+  # [必填] 服务器监听地址
+  # - 0.0.0.0 表示监听所有网络接口（局域网访问）
+  # - 127.0.0.1 表示仅本机访问
+  ip: 0.0.0.0
+
+  # [必填] 服务器监听端口
+  port: 8000
+
+  # [可选] 应用信息配置
+  app:
+    title: 零知
+    description: 统一WebSocket和HTTP API服务
+    version: 1.0.0
+
+  # [可选] SSL/WSS 加密连接配置
+  # 生产环境强烈建议启用SSL
+  ssl:
+    # 是否启用SSL加密连接 (启用后将使用 wss:// 和 https:// 协议)
+    enabled: false
+    # [SSL启用时必填] SSL证书文件路径 (相对于项目根目录)
+    # 可使用 scripts/generate_ssl_cert.sh 生成自签名证书
+    cert_path: 'certs/lingzhi_server.crt'
+    # [SSL启用时必填] SSL私钥文件路径 (相对于项目根目录)
+    key_path: 'certs/lingzhi_server.key'
+    # SSL版本 (支持: TLSv1_2, TLSv1_3)
+    ssl_version: 'TLSv1_2'
+    # 是否验证客户端证书 (双向认证，一般不需要)
+    verify_client: false
+    # [verify_client为true时必填] CA证书路径
+    ca_cert_path: 'certs/ca.crt'
+
+  # [可选] 认证配置
+  # 用于限制只有特定设备可以连接服务
+  auth:
+    # 是否启用认证
+    enabled: false
+    # 设备token列表
+    # ⚠️ 重要：name字段必须填写设备的MAC地址，用于验证设备身份
+    # 每个token只能用于指定的MAC地址设备，实现token与设备绑定
+    tokens:
+      # 格式：token: '<认证令牌>', name: '<设备的MAC地址>'
+      - token: 'YOUR_TOKEN_HERE' # [必填] 自定义认证令牌，建议使用复杂字符串
+        name: 'xx:xx:xx:xx:xx:xx' # [必填] 手机设备的MAC地址
+      # 可以添加多个设备
+      # - token: 'YOUR_TOKEN_HERE_2'
+      #   name: 'yy:yy:yy:yy:yy:yy'
+    # [可选] 设备白名单，白名单内的设备无需token验证
+    # allowed_devices:
+    #   - "24:0A:C4:1D:3B:F0"  # MAC地址列表
+
+  # [可选] 代理配置
+  # 如果服务器需要通过代理访问外网API，请配置此项
+  proxy:
+    http_proxy: '' # 例如: 'http://127.0.0.1:7890'
+    https_proxy: '' # 例如: 'http://127.0.0.1:7890'
+
+  # [可选] WebRTC 配置
+  # 用于实时音视频通信，如果使用以下cloudflare提供的一定额度的免费TURN服务，则需要前往cloudflare.com官网——进入“媒体模块”——选择Realtime下的TURN服务器，创建服务器应用并填入对应点账户名和凭证。或者使用自建的TURN服务器或者使用公用的。
+  webrtc:
+    # ICE 候选池大小
+    ice_candidate_pool_size: 4
+    # ICE 传输策略 (all, relay)
+    ice_transport_policy: all
+    # Bundle 策略 (max-bundle, max-compat, balanced)
+    bundle_policy: max-bundle
+    # RTCP 复用策略 (require, negotiate)
+    rtcp_mux_policy: require
+    # [重要] ICE 服务器配置 (STUN/TURN)
+    # 如果需要公网WebRTC通话，必须配置TURN服务器
+    # 免费STUN服务器可以使用Google的: stun:stun.l.google.com:19302
+    ice_servers:
+      # Cloudflare STUN/TURN 服务器示例
+      # 注意：以下为示例配置，需要替换为您自己的TURN服务器凭证
+      - urls:
+          - 'stun:stun.cloudflare.com:3478'
+          - 'turn:turn.cloudflare.com:3478?transport=udp'
+          - 'turn:turn.cloudflare.com:3478?transport=tcp'
+          - 'turns:turn.cloudflare.com:5349?transport=tcp'
+        username: 'YOUR_TURN_USERNAME' # [TURN必填] TURN服务器用户名
+        credential: 'YOUR_TURN_CREDENTIAL' # [TURN必填] TURN服务器凭证
+      # 可以添加更多备用服务器
+      # - urls:
+      #     - "stun:stun.l.google.com:19302"
+
+# [可选] 日志配置
+log:
+  # 控制台日志格式
+  log_format: '<green>{time:HH:mm:ss.SSS}</green>[<light-blue>{extra[tag]}</light-blue>][{function}:{line}]-<level>{level}</level>-<light-green>{message}</light-green>'
+  # 日志文件格式
+  log_format_file: '{time:HH:mm:ss.SSS}[{extra[tag]}][{function}:{line}]-{level}-{message}'
+  # 日志等级：INFO、DEBUG（调试时使用DEBUG）
+  log_level: INFO
+  # 日志目录
+  log_dir: log
+  # 日志文件名
+  log_file: 'server.log'
+  # 数据存储目录
+  data_dir: data
+
+# [可选] 没有语音输入多久后断开连接(秒)
+tts_silent_timeout_shutdown_duration: 100
+
+# [可选] VAD静默阈值(毫秒) - 判断用户停止说话的时间
+silence_threshold_ms: 1000
+
+# [可选] 对话上下文数量 - 保留最近N轮对话
+dialogue_context_num: 20
+
+# ############################# 插件配置 ####################################
+function_plugins:
+  # [可选] 本地音乐播放
+  play_music:
+    music_dir: './music' # 音乐文件存放目录
+    music_ext: # 支持的音乐格式
+      - '.mp3'
+      - '.wav'
+      - '.p3'
+    refresh_time: 300 # 刷新音乐列表间隔(秒)
+
+  # [可选] 电影搜索功能（示例，可自行开发应用接口）
+  search_movie:
+    base_url: 'http://localhost:3300'
+    password: 'YOUR_PASSWORD'
+    # 电子书搜索功能配置（Z-Library）
+  search_ebook:
+    # Z-Library 域名列表（按优先级排序）
+    domains:
+      - 'https://xxxx.xxxxx'
+    # 登录账号
+    email: 'YOUR_ACCOUNT'
+    # 登录密码
+    password: 'YOUR_PASSWORD'
+
+# [可选] 启用的插件列表
+selected_function_plugins:
+  required: # 必须加载的插件
+    # - handle_exit_intent
+    - plugin_loader
+  optional: # 可选插件（根据需要启用）
+    - get_news
+    - play_music
+    - search_movie
+    - get_time
+    - get_lunar
+
+# [可选] 唤醒词回复音频文件路径
+wakeup_words_notify_voice: 'config/assets/wakeup_words.mp3'
+
+# [必填] 提示词模板文件路径
+system_prompt_template: 'config/template/system_prompt_template.md'
+intent_prompt_template: 'config/template/intent_prompt_template.md'
+
+# ############################# 唤醒词配置 ####################################
+
+# [可选] 退出命令词
+cmd_exit:
+  - '退出'
+  - '关闭'
+  - '停止'
+  - '结束'
+  - '暂停'
+
+# [可选] 是否启用唤醒词快速响应
+enable_wakeup_words_response: true
+
+# [可选] 唤醒词列表
+wakeup_words:
+  - '你好小智'
+  - '你好零知'
+  # 可以自定义唤醒词
+  # - '你好助手'
+
+# ############################# 模型选择配置 ####################################
+#
+# 重要说明：
+# - 每项至少需要配置一个服务名称，填写对应的二级名称比如ASR模块下有FunASR(本地), FunASR_Docker, QwenASR可用的模块，则填写对应名字或者可使用自己开发的模块。
+# - ASR（语音识别）如果使用本地模型则无需API密钥
+# - 各模型提供商的API密钥需要自行申请
+#
+selected_module:
+  # [必填] 语音活动检测 - 推荐使用SileroVAD（本地运行）
+  VAD: SileroVAD
+  # [必填] 语音识别 - 可选: FunASR(本地), FunASR_Docker, QwenASR
+  ASR: QwenASR
+  # [必填] 大语言模型 - 根据下方LLM配置选择
+  LLM: GlmLLM
+  # [必填] 语音合成 - 根据下方TTS配置选择
+  TTS: QwenTTS
+  # [必填] 记忆模块 - nomem(无记忆)，记忆模块待优化。
+  Memory: nomem
+  # [必填] 意图识别 - 使用指定的LLM进行意图识别
+  Intent: GlmLLM
+  # [必填] 视觉语言模型 - 用于图像理解
+  VLM: QwenVLM
+
+# ############################# 记忆模块配置 ####################################
+Memory:
+  # [可选] 暂无记忆功能
+  nomem:
+    type: nomem
+    model_name: ''
+
+# ############################# 语音识别(ASR)配置 ####################################
+ASR:
+  # [可选] 阿里云通义千问ASR
+  # 申请地址：https://dashscope.console.aliyun.com/
+  QwenASR:
+    type: qwen
+    nickname: '通义千问-语音识别'
+    model_name: gummy-realtime-v1
+    api_key: 'YOUR_DASHSCOPE_API_KEY' # [必填] 阿里云DashScope API密钥
+
+  # [可选] FunASR 本地模型（无需API密钥）
+  # 需要下载模型到 models/SenseVoiceSmall 目录
+  FunASR:
+    type: funasr_local
+    nickname: 'FunASR-SenseVoiceSmall(本地)'
+    model_name: SenseVoiceSmall
+    model_dir: models/SenseVoiceSmall
+
+  # [可选] FunASR Docker 服务
+  # 需要先启动FunASR Docker容器
+  FunASR_Docker:
+    type: funasr_docker
+    nickname: 'FunASR-SenseVoiceSmall(Docker)'
+    base_url: 'ws://127.0.0.1:10095' # Docker服务地址
+    fallback_to_ws: true # WSS失败时回退到WS
+    model_name: SenseVoiceSmall
+
+# ############################# 语音活动检测(VAD)配置 ####################################
+VAD:
+  # Silero VAD（本地运行，无需API密钥）
+  SileroVAD:
+    type: silero
+    threshold: 0.5 # 检测阈值，越高越严格
+    model_dir: models/snakers4_silero-vad
+    model_name: snakers4_silero-vad
+
+# ############################# 大语言模型(LLM)配置 ####################################
+#
+# 至少需要配置一个LLM服务
+#
+LLM:
+  # [推荐] 智谱AI GLM
+  # 申请地址：https://open.bigmodel.cn/
+  GlmLLM:
+    type: zhipu
+    api_key: 'YOUR_ZHIPU_API_KEY' # [必填] 智谱API密钥
+    max_output_tokens: 8192
+    model_name: glm-4-flash # 可选: glm-4, glm-4-flash等官方提出的模型名。
+    temperature: 0.7
+    thinking_mode: disabled # 可选: enabled, disabled
+    stream_mode: true
+
+# ############################# 语音合成(TTS)配置 ####################################
+#
+# 至少需要配置一个TTS服务
+#
+TTS:
+  # [推荐] 阿里云通义千问TTS
+  # 申请地址：https://dashscope.console.aliyun.com/
+  QwenTTS:
+    type: qwen
+    voice: Cherry # 可选: Cherry, Zhichu, Zhixiang, Zhiming, Zhiyan 等
+    model_name: qwen3-tts-flash-realtime
+    api_key: 'YOUR_DASHSCOPE_API_KEY' # [必填] 阿里云DashScope API密钥
+    base_url: 'wss://dashscope.aliyuncs.com/api-ws/v1/realtime'
+    language_type: Auto # 语言类型：Auto, zh, en
+    sample_rate: 24000
+
+  # [可选] Edge TTS（微软Edge浏览器TTS，免费）
+  # 无需API密钥，但需要网络连接
+  EdgeTTS:
+    type: edge
+    voice: zh-CN-XiaoxiaoNeural # 可选多种中文语音
+    model_name: official
+
+  # [可选] 豆包TTS
+  # 申请地址：https://www.volcengine.com/
+  # DoubaoTTS:
+  #   type: doubao
+  #   api_key: 'YOUR_DOUBAO_API_KEY'
+  #   voice: 'zh_female_shuangkuaisisi_moon_bigtts'
+
+# ############################# 视觉语言模型(VLM)配置 ####################################
+#
+# [可选] 用于图像和视频理解
+#
+VLM:
+  # 阿里云通义千问VLM
+  QwenVLM:
+    type: qwen
+    api_key: 'YOUR_DASHSCOPE_API_KEY' # [必填] 阿里云DashScope API密钥
+    model_name: qwen2.5-vl-7b-instruct
+    base_url: ''
+    thinking_mode: disabled
