@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  mobile-nika-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: mobile-nika-server:latest
+    container_name: mobile-nika-server
+
+    ports:
+      - '0.0.0.0:8000:8000' # 明确绑定到所有网络接口
+
+    environment:
+      - PYTHONUNBUFFERED=1
+      - TZ=Asia/Shanghai
+      - SSL_ENABLED=false
+      - SERVER_IP=0.0.0.0 # 容器内服务绑定地址
+
+    volumes:
+      - ./models:/app/models:rw
+      - ./music:/app/music:rw
+      - ./config/.server_config.yaml:/app/config/.server_config.yaml:ro
+      - ./config/assets:/app/config/assets:ro
+      - ./config/template:/app/config/template:ro
+      - ./data:/app/data:rw
+      - ./log:/app/log:rw
+      - ./plugins:/app/plugins:ro
+
+    networks:
+      - mobile-nika-network
+
+    restart: unless-stopped
+
+    deploy:
+      resources:
+        limits:
+          cpus: '4'
+          memory: 8G
+        reservations:
+          cpus: '2'
+          memory: 4G
+
+    logging:
+      driver: 'json-file'
+      options:
+        max-size: '100m'
+        max-file: '5'
+
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:8000/api/v1/health']
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+networks:
+  mobile-nika-network:
+    driver: bridge

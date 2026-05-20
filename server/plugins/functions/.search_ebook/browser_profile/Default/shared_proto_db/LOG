@@ -1,0 +1,4 @@
+2026/05/20-13:55:59.593 329b32 Creating DB /Users/zzb/Documents/Project/mobile-nika/server/plugins/functions/.search_ebook/browser_profile/Default/shared_proto_db since it was missing.
+2026/05/20-13:55:59.599 329b32 Reusing MANIFEST /Users/zzb/Documents/Project/mobile-nika/server/plugins/functions/.search_ebook/browser_profile/Default/shared_proto_db/MANIFEST-000001
+2026/05/20-13:55:59.599 329b32 Recovering log #3
+2026/05/20-13:55:59.601 329b32 Reusing old log /Users/zzb/Documents/Project/mobile-nika/server/plugins/functions/.search_ebook/browser_profile/Default/shared_proto_db/000003.log 

@@ -1,0 +1,40 @@
+numpy==1.26.4
+pyyml==0.0.2
+torch==2.2.2
+silero_vad==5.1.2
+opuslib_next==1.1.2
+pydub==0.25.1
+funasr==1.2.3
+torchaudio==2.2.2
+openai==1.95.0
+edge_tts==7.0.0
+httpx>=0.27.0
+aiohttp==3.9.3
+aiohttp_cors==0.7.0
+ormsgpack==1.7.0
+ruamel.yaml==0.18.10
+loguru==0.7.3
+requests==2.32.3
+mem0ai==0.1.62
+bs4==0.0.2
+modelscope==1.23.2
+sherpa_onnx>=1.11.0
+mcp==1.4.1
+cnlunar==0.2.0
+PySocks==1.7.1
+psutil == 7.0.0
+pyaudio == 0.2.14
+fastapi==0.115.6
+uvicorn[standard]==0.32.1
+pydantic==2.10.4
+netifaces>=0.11.0
+PyYAML>=6.0
+google-genai==1.22.0
+dashscope >=1.24.1
+soundfile>=0.12.1
+av>=9.0.0
+opencv-python==4.10.0.84
+fastrtc==0.0.34
+zai-sdk==0.2.2
+dashscope==1.24.1
+playwright==1.58.0

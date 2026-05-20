@@ -1,0 +1,4 @@
+2026/05/20-13:55:58.805 329b19 Creating DB /Users/zzb/Documents/Project/mobile-nika/server/plugins/functions/.search_ebook/browser_profile/Default/Sync Data/LevelDB since it was missing.
+2026/05/20-13:55:58.825 329b19 Reusing MANIFEST /Users/zzb/Documents/Project/mobile-nika/server/plugins/functions/.search_ebook/browser_profile/Default/Sync Data/LevelDB/MANIFEST-000001
+2026/05/20-13:55:58.825 329b19 Recovering log #3
+2026/05/20-13:55:58.826 329b19 Reusing old log /Users/zzb/Documents/Project/mobile-nika/server/plugins/functions/.search_ebook/browser_profile/Default/Sync Data/LevelDB/000003.log 

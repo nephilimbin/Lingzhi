@@ -1,0 +1,38 @@
+# 版本配置文件
+# 用于管理服务器版本和客户端兼容性
+
+# 服务器版本信息
+server:
+  version: '1.0.0'
+  release_date: '2025-01-20'
+  notes: '首次正式发布'
+
+# 默认客户端版本（用于无参数请求时的兼容性检查）
+# 前端当前版本
+default_client_version: '1.0.3'
+
+# 客户端版本兼容性配置
+client:
+  # 支持的客户端版本范围
+  supported_ranges:
+    - server_major: 1
+      min_version: '1.0.0'
+      max_version: '1.0.3'
+      force_upgrade: false
+      recommended_version: '1.0.3'
+
+  # 应用商店下载链接
+  download_urls:
+    ios: 'https://apps.apple.com/app/零知-可自定义的ai助手/id6759523331'
+    android: ''
+    # 可选：直接下载 APK（测试用）
+    apk_direct: ''
+
+# 版本策略配置
+policy:
+  # 是否启用严格版本检查（生产环境建议 true）
+  strict_mode: false
+  # 版本检查缓存时间（秒）
+  cache_ttl: 3600
+  # 是否显示版本更新提示
+  show_update_prompt: true

@@ -1,0 +1,4 @@
+2026/05/20-13:55:59.154 329bbf Creating DB /Users/zzb/Documents/Project/mobile-nika/server/plugins/functions/.search_ebook/browser_profile/Default/Local Storage/leveldb since it was missing.
+2026/05/20-13:55:59.161 329bbf Reusing MANIFEST /Users/zzb/Documents/Project/mobile-nika/server/plugins/functions/.search_ebook/browser_profile/Default/Local Storage/leveldb/MANIFEST-000001
+2026/05/20-13:55:59.162 329bbf Recovering log #46
+2026/05/20-13:55:59.162 329bbf Reusing old log /Users/zzb/Documents/Project/mobile-nika/server/plugins/functions/.search_ebook/browser_profile/Default/Local Storage/leveldb/000046.log 

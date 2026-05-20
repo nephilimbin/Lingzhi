@@ -1,0 +1,197 @@
+# SpecStory explanation file
+.specstory/.what-is-this.md
+cline/**
+samples/**
+.superdesign/**
+**/__pycache__/**
+
+# 文档记录
+.claude/
+CLAUDE.md
+bak/**
+openspec/**
+.specstory/**
+*.wav
+*.mp3
+.scratch/
+CONTEXT-MAP.md
+tests/
+release/
+
+# ==================== 安全敏感文件 ====================
+
+# 环境变量和配置文件
+.env
+.env.local
+.env.*.local
+*.env
+.envrc
+
+# SSL 证书和私钥（最重要！）
+*.key
+*.pem
+*.crt
+*.cer
+*.p12
+*.pfx
+*.jks
+*.keystore
+server/certs/
+*.csr
+*.ext
+
+# 敏感数据目录
+server/data/
+*.db
+*.sqlite
+*.sqlite3
+
+# API 密钥和配置
+*secret*
+*password*
+*api_key*
+*_config.json
+
+# ==================== Python ====================
+
+# Python 字节码
+__pycache__/
+*.py[cod]
+*$py.class
+
+# 虚拟环境
+.venv/
+venv/
+ENV/
+env/
+
+# 分发 / 打包
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+.eggs/
+
+# Python lib目录（只忽略根目录的lib，不忽略app/lib）
+/lib/
+/lib64/
+
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.manifest
+*.whl
+
+# PyInstaller
+*.spec
+
+# 单元测试 / 覆盖率
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# ==================== 日志和临时文件 ====================
+
+# 日志文件
+*.log
+logs/
+*.log.*
+
+# 临时文件
+.tmp/
+tmp/
+temp/
+*.tmp
+*.temp
+
+# ==================== IDE 和编辑器 ====================
+
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
+
+# ==================== Flutter/Dart（已有）====================
+
+# Flutter/Dart/Pub 相关
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+/build/
+
+# 符号化相关
+app.*.symbols
+
+# 混淆相关
+app.*.map.json
+
+# Android Studio 构建产物
+/android/app/debug
+/android/app/profile
+/android/app/release
+
+# iOS/XCode 相关
+**/ios/**/*.mode1v3
+**/ios/**/*.mode2v3
+**/ios/**/*.moved-aside
+**/ios/**/*.pbxuser
+**/ios/**/*.perspectivev3
+**/ios/**/*sync/
+**/ios/**/.sconsign.dblite
+**/ios/**/.tags*
+**/ios/**/.vagrant/
+**/ios/**/DerivedData/
+**/ios/**/Icon?
+**/ios/**/Pods/
+**/ios/**/.symlinks/
+**/ios/**/profile
+**/ios/**/xcuserdata
+**/ios/.generated/
+**/ios/Flutter/App.framework
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Flutter.podspec
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/ephemeral
+**/ios/Flutter/app.flx
+**/ios/Flutter/app.zip
+**/ios/Flutter/flutter_assets/
+**/ios/ServiceDefinitions.json
+**/ios/Runner/GeneratedPluginRegistrant.*
+
+# 覆盖率
+coverage/
+*.lcov
+
+# 临时文件
+.temp/
+.cache/
+
+# 本地配置
+.env*
+!.env.example
+
+# Nginx
+nginx/
