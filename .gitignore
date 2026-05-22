@@ -195,3 +195,10 @@ coverage/
 
 # Nginx
 nginx/
+
+# ==================== 浏览器配置文件 ====================
+
+# 浏览器profile目录（运行时生成，不应提交）
+server/plugins/functions/.search_ebook/
+**/.search_ebook/
+**/browser_profile/
